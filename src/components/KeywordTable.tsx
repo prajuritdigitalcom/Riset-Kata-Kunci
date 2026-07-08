@@ -120,7 +120,7 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({
             type="text"
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Search keywords..."
+            placeholder="Cari kata kunci..."
             className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-950 text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 dark:text-gray-100 transition-all duration-200"
           />
         </div>
@@ -136,8 +136,8 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({
               onChange={(e) => onSortChange(e.target.value as "A-Z" | "Z-A")}
               className="bg-transparent font-medium text-gray-700 dark:text-gray-300 focus:outline-hidden cursor-pointer text-xs"
             >
-              <option value="A-Z">A-Z (Alphabetical)</option>
-              <option value="Z-A">Z-A (Reverse)</option>
+              <option value="A-Z">A-Z (Urut Abjad)</option>
+              <option value="Z-A">Z-A (Terbalik)</option>
             </select>
           </div>
 
@@ -149,7 +149,7 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({
             className="flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 disabled:opacity-50 disabled:hover:bg-white dark:disabled:hover:bg-gray-950 transition-all duration-200 cursor-pointer"
           >
             <Copy className="w-3.5 h-3.5" />
-            Copy All
+            Salin Semua
           </button>
 
           {/* Download Dropdown or Buttons */}
@@ -223,7 +223,7 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({
             ) : (
               <tr>
                 <td colSpan={columns.length} className="p-8 text-center text-gray-500">
-                  No matching keywords found. Try searching for something else.
+                  Tidak ada kata kunci yang cocok ditemukan. Coba cari kata kunci lainnya.
                 </td>
               </tr>
             )}
@@ -235,7 +235,7 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({
       {table.getPageCount() > 1 && (
         <div className="p-4 bg-gray-50/35 dark:bg-gray-950/10 border-t border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row gap-4 items-center justify-between text-sm text-gray-600 dark:text-gray-400">
           <div className="flex items-center gap-2">
-            <span>Show</span>
+            <span>Tampilkan</span>
             <select
               id="page-size-select"
               value={pageSize}
@@ -248,15 +248,15 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({
                 </option>
               ))}
             </select>
-            <span>entries</span>
+            <span>data</span>
             <span className="mx-2 text-gray-300 dark:text-gray-700">|</span>
             <span>
-              Showing {table.getState().pagination.pageIndex * pageSize + 1} to{" "}
+              Menampilkan {table.getState().pagination.pageIndex * pageSize + 1} sampai{" "}
               {Math.min(
                 (table.getState().pagination.pageIndex + 1) * pageSize,
                 filteredCount
               )}{" "}
-              of {filteredCount} keywords
+              dari {filteredCount} kata kunci
             </span>
           </div>
 
@@ -270,7 +270,7 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({
               <ChevronLeft className="w-4 h-4" />
             </button>
             <span className="px-3 font-medium text-xs">
-              Page {table.getState().pagination.pageIndex + 1} of{" "}
+              Halaman {table.getState().pagination.pageIndex + 1} dari{" "}
               {table.getPageCount()}
             </span>
             <button

@@ -5,6 +5,38 @@ import { delayHelper, removeDuplicates, sortAZ, sortZA } from "../utils/export";
 
 const ALPHABET = "abcdefghijklmnopqrstuvwxyz".split("");
 
+/**
+ * Mendeteksi bahasa (hl) dan negara (gl) secara otomatis berdasarkan kata kunci yang diinput.
+ */
+function detectLanguageAndCountry(keyword: string): { hl: string; gl: string } {
+  const kw = keyword.toLowerCase().trim();
+  
+  // Kosakata bahasa Indonesia umum (termasuk kata hubung, kata keterangan, kata benda khas)
+  const indonesianWords = [
+    "terapi", "bekam", "jasa", "murah", "beli", "jual", "harga", "cara", "resep", "obat",
+    "terdekat", "di", "yang", "dan", "untuk", "dengan", "adalah", "bisa", "buat", "makan",
+    "wisata", "hotel", "tempat", "bagus", "kuliner", "sewa", "rental", "kursus", "belajar",
+    "sekolah", "rumah", "mobil", "motor", "hp", "terbaik", "terbaru", "promo", "diskon",
+    "apa", "mengapa", "bagaimana", "kapan", "siapa", "dimana", "alamat", "nomor", "kontak",
+    "telepon", "wa", "whatsapp", "daerah", "kota", "kabupaten", "provinsi", "indonesia",
+    "jakarta", "bandung", "surabaya", "medan", "semarang", "makassar", "palembang", "bali",
+    "bandung", "jogja", "yogyakarta", "solo", "malang", "bogor", "depok", "tangerang", "bekasi",
+    "sakit", "sehat", "pijat", "urut", "klinik", "dokter", "rs", "herbal", "alami", "madu"
+  ];
+  
+  const words = kw.split(/[^a-zA-Z]+/);
+  const hasIndonesianWord = words.some(w => indonesianWords.includes(w));
+  // Pola akhiran/imbuhan khas bahasa Indonesia seperti "ng", "nya", atau awalan "di", "me", "ber", "se"
+  const hasIndonesianPattern = /[aiueo]ng\b/.test(kw) || /nya\b/.test(kw) || /\b(se|me|ber|per|ke|di)[a-z]{3,}/.test(kw);
+  
+  if (hasIndonesianWord || hasIndonesianPattern) {
+    return { hl: "id", gl: "id" };
+  }
+  
+  // Default ke English (US) jika tidak terdeteksi Indonesia
+  return { hl: "en", gl: "us" };
+}
+
 export function useKeywordResearch() {
   const [settings, setSettings] = useState<ResearchSettings>({
     delay: 300,
@@ -142,7 +174,7 @@ export function useKeywordResearch() {
           // Last running worker detects completion
           statusRef.current = "completed";
           setProgress((prev) => ({ ...prev, status: "completed" }));
-          triggerToast("Research Finished Successfully!", "success");
+          triggerToast("Riset selesai dengan sukses!", "success");
         }
 
         // Wait based on user-configured delay helper
@@ -158,13 +190,21 @@ export function useKeywordResearch() {
   const startResearch = (rawKeywordInput: string) => {
     const cleanedKeyword = rawKeywordInput.replace(/\s+/g, " ").trim();
     if (!cleanedKeyword || cleanedKeyword.length < 2) {
-      triggerToast("Keyword must be at least 2 characters long.", "error");
+      triggerToast("Kata kunci minimal harus 2 karakter.", "error");
       return;
     }
     if (cleanedKeyword.length > 150) {
-      triggerToast("Keyword cannot exceed 150 characters.", "error");
+      triggerToast("Kata kunci tidak boleh melebihi 150 karakter.", "error");
       return;
     }
+
+    // Deteksi bahasa dan negara otomatis dari input kata kunci
+    const detected = detectLanguageAndCountry(cleanedKeyword);
+    setSettings((prev) => ({
+      ...prev,
+      hl: detected.hl,
+      gl: detected.gl,
+    }));
 
     setKeyword(cleanedKeyword);
     setRawKeywords([]);
@@ -202,7 +242,7 @@ export function useKeywordResearch() {
       errorCount: 0,
     });
 
-    triggerToast("Research Started", "success");
+    triggerToast("Riset kata kunci dimulai...", "success");
 
     // Spawn workers with concurrency
     setTimeout(() => {
@@ -214,19 +254,19 @@ export function useKeywordResearch() {
     statusRef.current = "stopped";
     setProgress((prev) => ({ ...prev, status: "stopped" }));
     queueRef.current = [];
-    triggerToast("Research Stopped", "info");
+    triggerToast("Riset dihentikan", "info");
   };
 
   const pauseResearch = () => {
     statusRef.current = "paused";
     setProgress((prev) => ({ ...prev, status: "paused" }));
-    triggerToast("Research Paused", "info");
+    triggerToast("Riset dijeda", "info");
   };
 
   const resumeResearch = () => {
     statusRef.current = "running";
     setProgress((prev) => ({ ...prev, status: "running" }));
-    triggerToast("Research Resumed", "success");
+    triggerToast("Riset dilanjutkan", "success");
     
     // Restart workers to consume from queueRef.current
     setTimeout(() => {

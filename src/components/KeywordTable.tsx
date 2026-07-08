@@ -121,7 +121,7 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
             placeholder="Cari kata kunci..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-950 text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 dark:text-gray-100 transition-all duration-200"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-950 text-sm focus:outline-hidden focus:ring-2 focus:ring-brand/20 focus:border-brand dark:text-gray-100 transition-all duration-200"
           />
         </div>
 
@@ -161,7 +161,7 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({
               className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 disabled:opacity-50 transition-all duration-200 cursor-pointer"
               title="Download TXT"
             >
-              <FileText className="w-3.5 h-3.5 text-blue-500" />
+              <FileText className="w-3.5 h-3.5 text-brand" />
               <span className="hidden sm:inline">TXT</span>
             </button>
             <button
@@ -178,7 +178,7 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({
               id="btn-download-xlsx"
               disabled={keywords.length === 0}
               onClick={onDownloadExcel}
-              className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-white bg-blue-600 border border-blue-600 rounded-xl hover:bg-blue-700 disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200 dark:disabled:bg-gray-950 dark:disabled:border-gray-900 transition-all duration-200 cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-white bg-brand border border-brand rounded-xl hover:bg-brand-hover disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200 dark:disabled:bg-gray-950 dark:disabled:border-gray-900 transition-all duration-200 cursor-pointer"
               title="Download Excel"
             >
               <FileSpreadsheet className="w-3.5 h-3.5" />

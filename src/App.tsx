@@ -134,7 +134,7 @@ export default function App() {
         {/* Header Block */}
         <header id="app-header" className="flex flex-col gap-3 justify-center items-center border-b border-gray-200/60 pb-6 text-center">
           <div className="flex flex-col items-center">
-            <div className="flex items-center gap-2 text-blue-600 mb-1.5">
+            <div className="flex items-center gap-2 text-brand mb-1.5">
               <Sparkles className="w-5 h-5" />
               <span className="text-xs font-bold uppercase tracking-widest font-display">
                 Paket Alat SEO
@@ -164,7 +164,7 @@ export default function App() {
                   onChange={(e) => setInputVal(e.target.value)}
                   placeholder="Masukkan kata kunci..."
                   disabled={isRunning || isPaused}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50/50 text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 disabled:opacity-60"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50/50 text-sm focus:outline-hidden focus:ring-2 focus:ring-brand/20 focus:border-brand transition-all duration-200 disabled:opacity-60"
                 />
               </div>
 
@@ -175,7 +175,7 @@ export default function App() {
                     id="btn-start"
                     type="submit"
                     disabled={inputVal.trim().length < 2}
-                    className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold text-sm px-6 py-3 rounded-xl transition-all duration-200 cursor-pointer"
+                    className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-brand hover:bg-brand-hover disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold text-sm px-6 py-3 rounded-xl transition-all duration-200 cursor-pointer"
                   >
                     <Play className="w-4 h-4 fill-current" />
                     Mulai Riset
@@ -227,7 +227,7 @@ export default function App() {
                 type="button"
                 onClick={handleUseExample}
                 disabled={isRunning || isPaused}
-                className="text-blue-600 hover:underline font-medium cursor-pointer disabled:opacity-40"
+                className="text-brand hover:underline font-medium cursor-pointer disabled:opacity-40"
               >
                 Contoh: Jasa Terapi Bekam
               </button>
@@ -241,7 +241,7 @@ export default function App() {
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-2">
                 {isRunning ? (
-                  <Loader2 className="w-4 h-4 text-blue-500 animate-spin" />
+                  <Loader2 className="w-4 h-4 text-brand animate-spin" />
                 ) : isPaused ? (
                   <Pause className="w-4 h-4 text-amber-500" />
                 ) : isStopped ? (
@@ -266,7 +266,7 @@ export default function App() {
               <div
                 className={`h-full transition-all duration-300 ${
                   isRunning
-                    ? "bg-blue-600"
+                    ? "bg-brand"
                     : isPaused
                     ? "bg-amber-500"
                     : isStopped
@@ -281,7 +281,7 @@ export default function App() {
               <div className="flex items-center gap-1.5 max-w-full">
                 {progress.currentKeyword && isRunning && (
                   <>
-                    <Activity className="w-3.5 h-3.5 text-blue-500 flex-shrink-0 animate-pulse" />
+                    <Activity className="w-3.5 h-3.5 text-brand flex-shrink-0 animate-pulse" />
                     <span className="truncate">
                       Meminta: <span className="font-semibold text-gray-700 font-mono">"{progress.currentKeyword}"</span>
                     </span>
@@ -304,7 +304,7 @@ export default function App() {
         <section id="stats-container" className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Card 1: Total Keyword Ditemukan */}
           <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-xs flex items-center gap-4 transition-all hover:scale-[1.01]">
-            <div className="p-3 bg-blue-50 text-blue-600 rounded-xl">
+            <div className="p-3 bg-brand-light text-brand rounded-xl">
               <Database className="w-5 h-5" />
             </div>
             <div>
@@ -362,7 +362,7 @@ export default function App() {
             />
           ) : (
             <div className="bg-white border border-gray-200 rounded-2xl p-12 text-center shadow-xs flex flex-col items-center gap-4">
-              <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center text-blue-500 mb-2">
+              <div className="w-16 h-16 rounded-full bg-brand-light flex items-center justify-center text-brand mb-2">
                 <Layers className="w-8 h-8" />
               </div>
               <div>
@@ -376,15 +376,15 @@ export default function App() {
               <div className="flex flex-col gap-1.5 text-xs text-left max-w-sm border border-gray-100 rounded-xl p-3 bg-gray-50/50 text-gray-500 mt-2">
                 <span className="font-semibold text-gray-700">Bagaimana cara kerjanya?</span>
                 <span className="flex items-start gap-1">
-                  <ChevronRight className="w-3.5 h-3.5 text-blue-500 flex-shrink-0 mt-0.5" />
+                  <ChevronRight className="w-3.5 h-3.5 text-brand flex-shrink-0 mt-0.5" />
                   Sistem akan memindai akhiran (suffix) otomatis (dari "kata kunci a" s/d "kata kunci z")
                 </span>
                 <span className="flex items-start gap-1">
-                  <ChevronRight className="w-3.5 h-3.5 text-blue-500 flex-shrink-0 mt-0.5" />
+                  <ChevronRight className="w-3.5 h-3.5 text-brand flex-shrink-0 mt-0.5" />
                   Sistem akan memindai awalan (prefix) otomatis (dari "a kata kunci" s/d "z kata kunci")
                 </span>
                 <span className="flex items-start gap-1">
-                  <ChevronRight className="w-3.5 h-3.5 text-blue-500 flex-shrink-0 mt-0.5" />
+                  <ChevronRight className="w-3.5 h-3.5 text-brand flex-shrink-0 mt-0.5" />
                   Total 52 permintaan Google Autocomplete digabung & diurutkan otomatis!
                 </span>
               </div>

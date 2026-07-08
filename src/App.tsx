@@ -240,7 +240,52 @@ export default function App() {
               </h3>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
+              {/* Language Dropdown */}
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="setting-hl" className="text-xs font-semibold text-gray-500 dark:text-gray-400">
+                  Target Language (Bahasa)
+                </label>
+                <select
+                  id="setting-hl"
+                  value={settings.hl}
+                  disabled={isRunning || isPaused}
+                  onChange={(e) =>
+                    setSettings((prev) => ({ ...prev, hl: e.target.value }))
+                  }
+                  className="px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-950 text-sm text-gray-700 dark:text-gray-300 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 cursor-pointer disabled:opacity-60"
+                >
+                  <option value="id">Indonesian (Bahasa Indonesia)</option>
+                  <option value="en">English</option>
+                  <option value="ms">Malay (Bahasa Melayu)</option>
+                  <option value="es">Spanish (Español)</option>
+                </select>
+                <span className="text-[10px] text-gray-400">Bahasa hasil pencarian</span>
+              </div>
+
+              {/* Country Dropdown */}
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="setting-gl" className="text-xs font-semibold text-gray-500 dark:text-gray-400">
+                  Target Country (Negara)
+                </label>
+                <select
+                  id="setting-gl"
+                  value={settings.gl}
+                  disabled={isRunning || isPaused}
+                  onChange={(e) =>
+                    setSettings((prev) => ({ ...prev, gl: e.target.value }))
+                  }
+                  className="px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-950 text-sm text-gray-700 dark:text-gray-300 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 cursor-pointer disabled:opacity-60"
+                >
+                  <option value="id">Indonesia (ID)</option>
+                  <option value="us">United States (US)</option>
+                  <option value="my">Malaysia (MY)</option>
+                  <option value="sg">Singapore (SG)</option>
+                  <option value="gb">United Kingdom (UK)</option>
+                </select>
+                <span className="text-[10px] text-gray-400">Geolokasi server pencarian</span>
+              </div>
+
               {/* Delay Dropdown */}
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="setting-delay" className="text-xs font-semibold text-gray-500 dark:text-gray-400">

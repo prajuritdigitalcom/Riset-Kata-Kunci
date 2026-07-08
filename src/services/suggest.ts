@@ -10,12 +10,19 @@
  * @param retries Number of retries allowed
  * @returns Array of suggested keyword strings
  */
-export async function fetchSuggestions(query: string, retries: number = 2): Promise<string[]> {
+export async function fetchSuggestions(
+  query: string,
+  retries: number = 2,
+  hl: string = "id",
+  gl: string = "id"
+): Promise<string[]> {
   let attempt = 0;
   
   while (attempt <= retries) {
     try {
-      const response = await fetch(`/api/suggest?q=${encodeURIComponent(query)}`);
+      const response = await fetch(
+        `/api/suggest?q=${encodeURIComponent(query)}&hl=${encodeURIComponent(hl)}&gl=${encodeURIComponent(gl)}`
+      );
       if (!response.ok) {
         throw new Error(`HTTP error ${response.status}: ${response.statusText}`);
       }

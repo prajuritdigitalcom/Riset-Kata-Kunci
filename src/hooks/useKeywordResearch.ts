@@ -10,6 +10,8 @@ export function useKeywordResearch() {
     delay: 300,
     retry: 2,
     concurrent: 3,
+    hl: "id",
+    gl: "id",
   });
 
   const [keyword, setKeyword] = useState("");
@@ -36,7 +38,9 @@ export function useKeywordResearch() {
 
   // References to track current states in async workers to avoid stale closure issues
   const statusRef = useRef<"idle" | "running" | "paused" | "stopped" | "completed">("idle");
-  statusRef.current = progress.status;
+  useEffect(() => {
+    statusRef.current = progress.status;
+  }, [progress.status]);
 
   const settingsRef = useRef(settings);
   settingsRef.current = settings;
@@ -92,7 +96,12 @@ export function useKeywordResearch() {
 
         try {
           // Fetch from service
-          suggestions = await fetchSuggestions(task.query, settingsRef.current.retry);
+          suggestions = await fetchSuggestions(
+            task.query,
+            settingsRef.current.retry,
+            settingsRef.current.hl,
+            settingsRef.current.gl
+          );
           success = true;
         } catch (error) {
           setProgress((prev) => ({
@@ -131,6 +140,7 @@ export function useKeywordResearch() {
         // Trigger finish if we just completed the last request
         if (queueRef.current.length === 0 && activeWorkersRef.current === 1 && statusRef.current === "running") {
           // Last running worker detects completion
+          statusRef.current = "completed";
           setProgress((prev) => ({ ...prev, status: "completed" }));
           triggerToast("Research Finished Successfully!", "success");
         }
@@ -182,6 +192,7 @@ export function useKeywordResearch() {
     });
 
     queueRef.current = tasks;
+    statusRef.current = "running";
 
     setProgress({
       totalRequests: tasks.length,
@@ -200,17 +211,20 @@ export function useKeywordResearch() {
   };
 
   const stopResearch = () => {
+    statusRef.current = "stopped";
     setProgress((prev) => ({ ...prev, status: "stopped" }));
     queueRef.current = [];
     triggerToast("Research Stopped", "info");
   };
 
   const pauseResearch = () => {
+    statusRef.current = "paused";
     setProgress((prev) => ({ ...prev, status: "paused" }));
     triggerToast("Research Paused", "info");
   };
 
   const resumeResearch = () => {
+    statusRef.current = "running";
     setProgress((prev) => ({ ...prev, status: "running" }));
     triggerToast("Research Resumed", "success");
     

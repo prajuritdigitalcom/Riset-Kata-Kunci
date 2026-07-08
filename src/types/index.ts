@@ -2,6 +2,8 @@ export interface ResearchSettings {
   delay: number; // in ms
   retry: number;
   concurrent: number;
+  hl: string; // language code
+  gl: string; // country code
 }
 
 export interface KeywordItem {

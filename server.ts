@@ -12,13 +12,16 @@ async function startServer() {
   // API endpoint for Google Suggest Proxy
   app.get("/api/suggest", async (req, res) => {
     const q = req.query.q;
+    const hl = typeof req.query.hl === "string" ? req.query.hl : "id";
+    const gl = typeof req.query.gl === "string" ? req.query.gl : "id";
+    
     if (!q || typeof q !== "string") {
       res.status(400).json({ error: "Missing query parameter 'q'" });
       return;
     }
 
     try {
-      const url = `https://suggestqueries.google.com/complete/search?client=chrome&q=${encodeURIComponent(q)}`;
+      const url = `https://suggestqueries.google.com/complete/search?client=chrome&hl=${encodeURIComponent(hl)}&gl=${encodeURIComponent(gl)}&q=${encodeURIComponent(q)}`;
       const response = await fetch(url, {
         headers: {
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"

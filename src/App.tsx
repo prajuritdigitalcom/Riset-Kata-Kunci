@@ -395,13 +395,10 @@ export default function App() {
 
       {/* Footer Block */}
       <footer id="app-footer" className="w-full border-t border-gray-200/60 py-6 mt-12 bg-white/50 backdrop-blur-md">
-        <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+        <div className="max-w-5xl mx-auto px-4 text-center text-xs text-gray-500">
           <span>
-            &copy; {new Date().getFullYear()} Alat Riset Kata Kunci Google Suggest. Hak Cipta Dilindungi Undang-Undang.
+            &copy; {new Date().getFullYear()} Karya Prajurit Digital. Hak Cipta Dilindungi.
           </span>
-          <div className="flex gap-4 font-medium text-gray-400">
-            <span>Ditenagai oleh Mesin Autocomplete Google Chrome</span>
-          </div>
         </div>
       </footer>
     </div>
